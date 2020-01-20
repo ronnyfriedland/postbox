@@ -1,0 +1,30 @@
+from mqtt.handler import EventHandler
+
+
+class Publisher(EventHandler):
+    """
+    Author: Ronny Friedland
+
+    Publisher of events to mqtt topic
+    """
+    def __init__(self, mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca):
+        """
+        Initializes the subscriber instance
+        :param mqtt_host: the mqtt host
+        :param mqtt_port: the mqtt port
+        :param mqtt_topic: the topic to publish to
+        :param mqtt_user: the (optional) user
+        :param mqtt_password: the (optional) password
+        :param mqtt_ssl_ca: the (optional) ca certificate if ssl is enabled
+        """
+        super().__init__(mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca)
+
+    def publish(self, message):
+        """
+        Publish the given message to the configured topic
+        :param message: the message to publish
+        """
+        self.client.connect(self.host, self.port)
+        self.client.publish(self.topic, message)
+        self.client.disconnect()
+
