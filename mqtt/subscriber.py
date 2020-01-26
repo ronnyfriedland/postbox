@@ -1,6 +1,5 @@
 import logging
 
-from abc import abstractmethod
 from mqtt.handler import EventHandler
 
 
@@ -34,6 +33,5 @@ class Subscriber(EventHandler):
         self.client.loop_forever()
 
     @staticmethod
-    @abstractmethod
     def on_message(client, userdata, msg):
         logging.debug("Message received " + msg)

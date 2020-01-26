@@ -1,4 +1,5 @@
-import logging, smtplib, ssl
+import logging, smtplib
+from email.message import EmailMessage
 
 from mqtt.subscriber import Subscriber
 
@@ -22,18 +23,26 @@ class MailSubscriber(Subscriber):
         Defines action what to do if event receives
         """
 
-        super().on_message(client, userdata, msg)
+        Subscriber.on_message(client, userdata, msg)
 
         logging.info((msg.topic + " " + str(msg.payload)))
 
         from config.Configuration import Configuration
         config = Configuration()
 
-        server = smtplib.SMTP_SSL(host=config.read_config("mail", "host"), port=config.read_config("mail", "port"), certfile=config.read_config("mail", "ssl_ca"))
+        mail = EmailMessage()
+        mail['Subject'] = "Sie haben Post ..."
+        mail['From'] = config.read_config("mail", "sender")
+        mail['To'] = config.read_config("mail", "recipient")
+        mail.set_content(msg)
+
+        server = smtplib.SMTP_SSL(host=config.read_config("mail", "host"),
+                                  port=config.read_config("mail", "port"),
+                                  certfile=config.read_config("mail", "ssl_ca"))
         try:
             server.ehlo()
             server.login(config.read_config("mail", "username"), config.read_config("mail", "password"))
-            server.send_message(msg, config.read_config("mail", "sender"), config.read_config("mail", "recipient"))
+            server.send_message(mail, config.read_config("mail", "sender"), config.read_config("mail", "recipient"))
         finally:
             server.quit()
 

@@ -24,7 +24,7 @@ class InfluxDBSubscriber(Subscriber):
         Defines action what to do if event receives
         """
 
-        super().on_message(client, userdata, msg)
+        Subscriber.on_message(client, userdata, msg)
 
         logging.info((msg.topic + " " + str(msg.payload)))
 

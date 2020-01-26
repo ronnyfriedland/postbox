@@ -30,4 +30,4 @@ class Configuration:
         :param key: the key to evaluate
         :return: the stored value for the given key
         """
-        return self.config.get(section, key)
+        return self.config.get(section, key, fallback=None)
