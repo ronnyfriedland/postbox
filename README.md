@@ -40,7 +40,6 @@
 - Host: 192.168.8.10
 - Port 465
 - SSL enabled
-  - benötigt SSL Zertifikat unter `mail/server.pem`
 - Credentials: xxx
 - Sender: xxx
 - Empfänger: xxx
