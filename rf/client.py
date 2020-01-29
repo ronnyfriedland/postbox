@@ -17,7 +17,7 @@ class RfClient:
         Constructor to initialize der receiver connected to the given pin
         :param pin:
         """
-        self.rfdevice = RFDevice(pin)
+        self.rfdevice = RFDevice(int(pin))
         self.rfdevice.enable_rx()
 
         signal.signal(signal.SIGINT, self.cleanup)

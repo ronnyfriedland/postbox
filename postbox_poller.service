@@ -9,8 +9,6 @@ Group=pi
 WorkingDirectory=/home/pi/postbox
 ExecStart=/home/pi/postbox/postbox_poller.py
 SyslogIdentifier=postbox-poller
-StandardOutput=syslog
-StandardError=syslog
 Restart=always
 RestartSec=3
 
