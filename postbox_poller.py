@@ -4,6 +4,23 @@ from rf.client import RfClient
 
 import logging
 import time
+import threading
+
+has_signal = False
+
+
+def publish_signal():
+    global has_signal
+
+    threading.Timer(60, publish_signal).start()
+
+    if has_signal:
+        logging.info("Publish result '%s' to queue" % result)
+        event_handler.publish("postbox_open")
+        has_signal = False
+
+
+publish_signal()
 
 logging.basicConfig(filename='postbox.log', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
                     format='%(asctime)-15s - [%(levelname)s] %(module)s: %(message)s', )
@@ -23,6 +40,5 @@ while True:
     if result is not None:
         logging.info("Received event '%s'" % result)
         if config.read_config("rf", "filter") is None or result == config.read_config("rf", "filter"):
-            logging.info("Publish result '%s' to queue" % result)
-            event_handler.publish("postbox_open")
+            has_signal = True
     time.sleep(1)  # wait one second until next check
