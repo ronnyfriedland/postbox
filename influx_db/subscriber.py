@@ -24,17 +24,18 @@ class InfluxDBSubscriber(Subscriber):
         Defines action what to do if event receives
         """
 
-        Subscriber.on_message(client, userdata, msg)
+        #Subscriber.on_message(client, userdata, msg)
 
         logging.info((msg.topic + " " + str(msg.payload)))
 
         from config.Configuration import Configuration
         config = Configuration()
 
-        influxdb_client = InfluxDbClient(config.read_config("influxdb", "host"),
-                                         config.read_config("influxdb", "port"),
-                                         config.read_config("influxdb", "username"),
-                                         config.read_config("influxdb", "password"),
-                                         config.read_config("influxdb", "database"))
+        influxdb_client = InfluxDbClient(
+            str(config.read_config("influxdb", "host")),
+            int(config.read_config("influxdb", "port")),
+            str(config.read_config("influxdb", "username")),
+            str(config.read_config("influxdb", "password")),
+            str(config.read_config("influxdb", "database")))
 
         influxdb_client.write_entry("postbox", {"value": msg.payload, "topic": msg.topic})

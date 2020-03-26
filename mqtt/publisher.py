@@ -24,7 +24,7 @@ class Publisher(EventHandler):
         Publish the given message to the configured topic
         :param message: the message to publish
         """
-        self.client.connect(self.host, self.port)
-        self.client.publish(self.topic, message)
+        self.client.connect(host=self.host, port=self.port)
+        self.client.publish(topic=self.topic, payload=message)
         self.client.disconnect()
 

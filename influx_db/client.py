@@ -40,7 +40,7 @@ class InfluxDbClient:
                 "fields": data
             }
         ]
-        connection = InfluxDBClient(self.host, int(self.port), self.username, self.password, self.database)
+        connection = InfluxDBClient(self.host, self.port, self.username, self.password, self.database)
         try:
             connection.write_points(entry, time_precision="u")
         finally:

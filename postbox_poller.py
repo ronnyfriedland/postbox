@@ -15,9 +15,9 @@ def publish_signal():
     threading.Timer(60, publish_signal).start()
 
     if has_signal:
-        logging.info("Publish result '%s' to queue" % result)
-        event_handler.publish("postbox_open")
         has_signal = False
+        event_handler.publish("postbox_open")
+        logging.info("Published event to queue")
 
 
 publish_signal()
@@ -28,17 +28,17 @@ logging.basicConfig(filename='postbox.log', level=logging.INFO, datefmt='%Y-%m-%
 config = Configuration()
 
 rf_client = RfClient(config.read_config("rf", "pin"))
-event_handler = Publisher(config.read_config("mqtt", "host"),
-                          config.read_config("mqtt", "port"),
-                          config.read_config("mqtt", "topic"),
-                          config.read_config("mqtt", "user"),
-                          config.read_config("mqtt", "password"),
-                          config.read_config("mqtt", "ssl_ca"))
+event_handler = Publisher(str(config.read_config("mqtt", "host")),
+                          int(config.read_config("mqtt", "port")),
+                          str(config.read_config("mqtt", "topic")),
+                          str(config.read_config("mqtt", "user")),
+                          str(config.read_config("mqtt", "password")),
+                          str(config.read_config("mqtt", "ssl_ca")))
 
 while True:
     result = rf_client.read()
     if result is not None:
         logging.info("Received event '%s'" % result)
-        if config.read_config("rf", "filter") is None or result == config.read_config("rf", "filter"):
+        if config.read_config("rf", "filter") is None or result == int(config.read_config("rf", "filter")):
             has_signal = True
     time.sleep(1)  # wait one second until next check

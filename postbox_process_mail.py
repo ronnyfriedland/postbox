@@ -8,11 +8,12 @@ logging.basicConfig(filename='postbox_mail.log', level=logging.DEBUG, datefmt='%
 
 config = Configuration()
 
-event_handler = MailSubscriber(config.read_config("mqtt", "host"),
-                           config.read_config("mqtt", "port"),
-                           config.read_config("mqtt", "topic"),
-                           config.read_config("mqtt", "user"),
-                           config.read_config("mqtt", "password"),
-                           config.read_config("mqtt", "ssl_ca"))
+event_handler = MailSubscriber(
+                           str(config.read_config("mqtt", "host")),
+                           int(config.read_config("mqtt", "port")),
+                           str(config.read_config("mqtt", "topic")),
+                           str(config.read_config("mqtt", "user")),
+                           str(config.read_config("mqtt", "password")),
+                           str(config.read_config("mqtt", "ssl_ca")))
 
 event_handler.subscribe()

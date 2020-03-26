@@ -8,11 +8,12 @@ logging.basicConfig(filename='postbox_influxdb.log', level=logging.DEBUG, datefm
 
 config = Configuration()
 
-event_handler = InfluxDBSubscriber(config.read_config("mqtt", "host"),
-                           config.read_config("mqtt", "port"),
-                           config.read_config("mqtt", "topic"),
-                           config.read_config("mqtt", "user"),
-                           config.read_config("mqtt", "password"),
-                           config.read_config("mqtt", "ssl_ca"))
+event_handler = InfluxDBSubscriber(
+                           str(config.read_config("mqtt", "host")),
+                           int(config.read_config("mqtt", "port")),
+                           str(config.read_config("mqtt", "topic")),
+                           str(config.read_config("mqtt", "user")),
+                           str(config.read_config("mqtt", "password")),
+                           str(config.read_config("mqtt", "ssl_ca")))
 
 event_handler.subscribe()

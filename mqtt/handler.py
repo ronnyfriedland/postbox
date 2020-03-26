@@ -25,7 +25,7 @@ class EventHandler(ABC):
             self.client.username_pw_set(user, password)
         if ssl_ca is not None:
             self.client.tls_set(ca_certs=ssl_ca)
-            self.client.tls_insecure_set(True) # todo: fixme !
+            self.client.tls_insecure_set(True)
 
         self.client.on_connect = self.on_connect
 
