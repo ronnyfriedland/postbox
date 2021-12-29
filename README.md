@@ -4,8 +4,8 @@
 
 ## Rf 433 MHz Sender
 
-- TB195 Encoder Transmitter
-- Spannung: 5V DC
+- RF 433 Mhz Sender-Modul Kit
+- Spannung: 9V DC
 
 - Funktioniert direkt wenn Kontakt an einem Data-Pin besteht
 
@@ -40,7 +40,19 @@
 - Host: 192.168.8.10
 - Port 465
 - SSL enabled
+  - benötigt SSL Zertifikat unter `mail/server.pem`
 - Credentials: xxx
 - Sender: xxx
 - Empfänger: xxx
+
+## Vault
+
+- KV - Backend unter "postbox" gemountet
+- Ablage der Zugangsdaten
+  - mailserver_host  
+  - mailserver_port  
+  - mailserver_username  
+  - mailserver_password  
+  - mailserver_sender  
+  - mailserver_recipient  
 

@@ -27,9 +27,8 @@ class MailSubscriber(Subscriber):
 
         logging.info((msg.topic + " " + str(msg.payload)))
 
-
-        from config.Configuration import Configuration
-        config = Configuration(vault=True)
+        from mail.MailConfiguration import MailConfiguration
+        config = MailConfiguration(vault=True)
 
         mail = EmailMessage()
         mail['Subject'] = "Sie haben Post ..."
