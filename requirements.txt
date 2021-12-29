@@ -1,3 +1,4 @@
 rpi_rf >= 0.9.7
 paho-mqtt >= 1.5.0
 influxdb >= 5.2.2
+hvac >= 0.11.2

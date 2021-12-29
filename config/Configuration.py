@@ -10,10 +10,26 @@ class Configuration:
 
     config_file = 'config.ini'
 
-    def __init__(self, config_file=config_file):
+    def __init__(self, config_file=config_file, vault=False):
         self.config_file = config_file
         self.config = ConfigParser()
         self.config.read(self.config_file)
+
+        if vault:
+           import hvac, os
+
+           client = hvac.Client(
+               url=os.environ['VAULT_URL'],
+               token=os.environ['VAULT_TOKEN'],
+               verify=False)  # TODO: fixme
+           print(self.config)
+           self.config['mail']['host'] = client.secrets.kv.v1.read_secret(mount_point="website", path="mailserver_host")["data"]["value"]
+           self.config['mail']['port'] = client.secrets.kv.v1.read_secret(mount_point="website", path="mailserver_port")["data"]["value"]
+           self.config['mail']['username'] = client.secrets.kv.v1.read_secret(mount_point="website", path="mailserver_username")["data"]["value"]
+           self.config['mail']['password'] = client.secrets.kv.v1.read_secret(mount_point="website", path="mailserver_password")["data"]["value"]
+           self.config['mail']['sender'] = client.secrets.kv.v1.read_secret(mount_point="website", path="mailserver_sender")["data"]["value"]
+           self.config['mail']['recipient'] = client.secrets.kv.v1.read_secret(mount_point="website", path="mailserver_recipient")["data"]["value"]
+
 
     def check_config(self, section):
         """

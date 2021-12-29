@@ -40,5 +40,5 @@ while True:
     if result is not None:
         logging.info("Received event '%s'" % result)
         if config.read_config("rf", "filter") is None or result == int(config.read_config("rf", "filter")):
-            has_signal = True
+           has_signal = True
     time.sleep(1)  # wait one second until next check

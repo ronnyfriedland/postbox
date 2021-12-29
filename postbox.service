@@ -1,0 +1,19 @@
+[Unit]
+Description=Postbox Docker Container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Environment=VAULT_TOKEN=s.w97l8eULZsW4kjqolxh6GC2O
+WorkingDirectory=/home/pi/docker/postbox/
+ExecStart=/bin/bash /home/pi/docker/postbox/start.sh
+ExecStop=/usr/bin/docker stop postbox
+SyslogIdentifier=postbox
+RemainAfterExit=yes
+Restart=on-error
+RestartSec=180
+StartLimitInterval=550
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target

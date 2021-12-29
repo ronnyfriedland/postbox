@@ -27,28 +27,35 @@ class MailSubscriber(Subscriber):
 
         logging.info((msg.topic + " " + str(msg.payload)))
 
+
         from config.Configuration import Configuration
-        config = Configuration()
+        config = Configuration(vault=True)
 
         mail = EmailMessage()
         mail['Subject'] = "Sie haben Post ..."
         mail['From'] = config.read_config("mail", "sender")
         mail['To'] = config.read_config("mail", "recipient")
-
-        if config.read_config("mail", "ssl_ca") is not None:
-            server = smtplib.SMTP_SSL(
-                host=str(config.read_config("mail", "host")),
-                port=int(config.read_config("mail", "port")),
-                certfile=str(config.read_config("mail", "ssl_ca")))
-        else:
-            server = smtplib.SMTP_SSL(
-                host=str(config.read_config("mail", "host")),
-                port=config.read_config("mail", "port"))
+        mail.add_header('Content-Type', 'text/plai/plainn')
+        mail.set_payload("Im Briefkasten wartet etwas auf dich !")
 
         try:
-            server.ehlo()
-            server.login(str(config.read_config("mail", "username")), str(config.read_config("mail", "password")))
-            server.send_message(mail, str(config.read_config("mail", "sender")), str(config.read_config("mail", "recipient")))
+            if config.read_config("mail", "ssl_ca") is not None:
+                server = smtplib.SMTP_SSL(
+                    host=str(config.read_config("mail", "host")),
+                    port=int(config.read_config("mail", "port")),
+                    certfile=str(config.read_config("mail", "ssl_ca")))
+            else:
+
+                server = smtplib.SMTP(
+                    host=str(config.read_config("mail", "host")),
+                    port=config.read_config("mail", "port"))
+                server.starttls()
+
+                server.ehlo()
+                server.login(str(config.read_config("mail", "username")), str(config.read_config("mail", "password")))
+                server.send_message(mail, str(config.read_config("mail", "sender")), str(config.read_config("mail", "recipient")))
+        except:
+            print("Error!", sys.exc_info()[0], "occurred.")
         finally:
             server.quit()
 

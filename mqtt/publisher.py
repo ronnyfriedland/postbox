@@ -1,7 +1,12 @@
 from mqtt.handler import EventHandler
 
+import logging
 
 class Publisher(EventHandler):
+
+    logging.basicConfig(filename='postbox_mqtt.log', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
+                        format='%(asctime)-15s - [%(levelname)s] %(module)s: %(message)s', )
+
     """
     Author: Ronny Friedland
 
@@ -27,4 +32,8 @@ class Publisher(EventHandler):
         self.client.connect(host=self.host, port=self.port)
         self.client.publish(topic=self.topic, payload=message)
         self.client.disconnect()
+
+        logging.info("published message: " + message)
+
+
 
