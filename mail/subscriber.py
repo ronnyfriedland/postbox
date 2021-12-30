@@ -17,6 +17,7 @@ class MailSubscriber(Subscriber):
         """
         super().__init__(mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca)
 
+
     @staticmethod
     def on_message(client, userdata, msg):
         """

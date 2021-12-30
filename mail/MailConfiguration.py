@@ -21,9 +21,9 @@ class MailConfiguration(Configuration):
                token=os.environ['VAULT_TOKEN'],
                verify=False)  # TODO: fixme
            print(self.config)
-           self.config['mail']['host'] = client.secrets.kv.v1.read_secret(mount_point=vault_mount, path="mailserver_host")["data"]["value"]
-           self.config['mail']['port'] = client.secrets.kv.v1.read_secret(mount_point=vault_mount, path="mailserver_port")["data"]["value"]
-           self.config['mail']['username'] = client.secrets.kv.v1.read_secret(mount_point=vault_mount, path="mailserver_username")["data"]["value"]
-           self.config['mail']['password'] = client.secrets.kv.v1.read_secret(mount_point=vault_mount, path="mailserver_password")["data"]["value"]
-           self.config['mail']['sender'] = client.secrets.kv.v1.read_secret(mount_point=vault_mount, path="mailserver_sender")["data"]["value"]
-           self.config['mail']['recipient'] = client.secrets.kv.v1.read_secret(mount_point=vault_mount, path="mailserver_recipient")["data"]["value"]
+           self.config['mail']['host'] = client.secrets.kv.v2.read_secret(mount_point=vault_mount, path="mailserver_host")["data"]["data"]["value"]
+           self.config['mail']['port'] = client.secrets.kv.v2.read_secret(mount_point=vault_mount, path="mailserver_port")["data"]["data"]["value"]
+           self.config['mail']['username'] = client.secrets.kv.v2.read_secret(mount_point=vault_mount, path="mailserver_username")["data"]["data"]["value"]
+           self.config['mail']['password'] = client.secrets.kv.v2.read_secret(mount_point=vault_mount, path="mailserver_password")["data"]["data"]["value"]
+           self.config['mail']['sender'] = client.secrets.kv.v2.read_secret(mount_point=vault_mount, path="mailserver_sender")["data"]["data"]["value"]
+           self.config['mail']['recipient'] = client.secrets.kv.v2.read_secret(mount_point=vault_mount, path="mailserver_recipient")["data"]["data"]["value"]

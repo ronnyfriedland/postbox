@@ -47,7 +47,7 @@
 
 ## Vault
 
-- KV - Backend unter "postbox" gemountet
+- KV - Backend (V2) unter "postbox" gemountet
 - Ablage der Zugangsdaten
   - mailserver_host  
   - mailserver_port  
