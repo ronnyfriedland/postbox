@@ -1,4 +1,4 @@
-import logging, smtplib
+import logging, smtplib, sys
 from email.message import EmailMessage
 
 from mqtt.subscriber import Subscriber
@@ -34,7 +34,7 @@ class MailSubscriber(Subscriber):
         mail['Subject'] = "Sie haben Post ..."
         mail['From'] = config.read_config("mail", "sender")
         mail['To'] = config.read_config("mail", "recipient")
-        mail.add_header('Content-Type', 'text/plai/plainn')
+        mail.add_header('Content-Type', 'text/plain')
         mail.set_payload("Im Briefkasten wartet etwas auf dich !")
 
         try:
@@ -52,7 +52,7 @@ class MailSubscriber(Subscriber):
 
                 server.ehlo()
                 server.login(str(config.read_config("mail", "username")), str(config.read_config("mail", "password")))
-                server.send_message(mail, str(config.read_config("mail", "sender")), str(config.read_config("mail", "recipient")))
+                server.send_message(mail)
         except:
             print("Error!", sys.exc_info()[0], "occurred.")
         finally:
