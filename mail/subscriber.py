@@ -37,6 +37,7 @@ class MailSubscriber(Subscriber):
         mail.add_header('Content-Type', 'text/plain')
         mail.set_payload("Im Briefkasten wartet etwas auf dich !")
 
+        server = None
         try:
             if config.read_config("mail", "ssl_ca") is not None:
                 server = smtplib.SMTP_SSL(
@@ -56,5 +57,6 @@ class MailSubscriber(Subscriber):
         except:
             print("Error!", sys.exc_info()[0], "occurred.")
         finally:
-            server.quit()
+            if server is not None:
+                server.quit()
 
