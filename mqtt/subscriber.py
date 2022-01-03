@@ -1,3 +1,6 @@
+"""
+base mqtt subscriber
+"""
 import logging
 
 from mqtt.handler import EventHandler
@@ -34,4 +37,4 @@ class Subscriber(EventHandler):
 
     @staticmethod
     def on_message(client, userdata, msg):
-        logging.debug("Message received " + msg)
+        logging.debug("Message received %s", msg)

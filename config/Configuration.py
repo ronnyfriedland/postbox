@@ -1,3 +1,6 @@
+"""
+base configuration handling
+"""
 from configparser import ConfigParser
 
 

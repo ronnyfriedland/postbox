@@ -1,6 +1,11 @@
-import logging, smtplib, sys
+"""
+mqtt subsriber to send mails
+"""
+import smtplib
+import sys
 from email.message import EmailMessage
 
+from mail.mailconfiguration import MailConfiguration
 from mqtt.subscriber import Subscriber
 
 
@@ -17,18 +22,13 @@ class MailSubscriber(Subscriber):
         """
         super().__init__(mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca)
 
-
     @staticmethod
     def on_message(client, userdata, msg):
         """
         Defines action what to do if event receives
         """
 
-        #Subscriber.on_message(client, userdata, msg)
-
-        logging.info((msg.topic + " " + str(msg.payload)))
-
-        from mail.MailConfiguration import MailConfiguration
+        # Subscriber.on_message(client, userdata, msg)
         config = MailConfiguration(vault=True)
 
         mail = EmailMessage()
@@ -60,4 +60,3 @@ class MailSubscriber(Subscriber):
         finally:
             if server is not None:
                 server.quit()
-

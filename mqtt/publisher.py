@@ -1,9 +1,12 @@
-from mqtt.handler import EventHandler
-
+"""
+mqtt publisher
+"""
 import logging
 
-class Publisher(EventHandler):
+from mqtt.handler import EventHandler
 
+
+class Publisher(EventHandler):
     logging.basicConfig(filename='postbox_mqtt.log', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
                         format='%(asctime)-15s - [%(levelname)s] %(module)s: %(message)s', )
 
@@ -12,6 +15,7 @@ class Publisher(EventHandler):
 
     Publisher of events to mqtt topic
     """
+
     def __init__(self, mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca):
         """
         Initializes the subscriber instance
@@ -33,7 +37,4 @@ class Publisher(EventHandler):
         self.client.publish(topic=self.topic, payload=message)
         self.client.disconnect()
 
-        logging.info("published message: " + message)
-
-
-
+        logging.info("published message: %s", message)

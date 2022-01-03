@@ -1,7 +1,10 @@
-from rpi_rf import RFDevice
-
+"""
+rf client to receive signals
+"""
 import logging
 import signal
+
+from rpi_rf import RFDevice
 
 
 class RfClient:
@@ -37,9 +40,8 @@ class RfClient:
         """
         if self.rfdevice.rx_code_timestamp != self.timestamp:
             self.timestamp = self.rfdevice.rx_code_timestamp
-            logging.info(str(self.rfdevice.rx_code) +
-                         " [pulselength " + str(self.rfdevice.rx_pulselength) +
-                         ", protocol " + str(self.rfdevice.rx_proto) + "]")
+            logging.info(str("%s [pulselength=%s, protocol=%s]", str(self.rfdevice.rx_code),
+                         str(self.rfdevice.rx_pulselength), str(self.rfdevice.rx_proto)))
             return self.rfdevice.rx_code
-        else:
-            return None
+
+        return None

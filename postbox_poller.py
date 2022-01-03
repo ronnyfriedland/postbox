@@ -1,10 +1,13 @@
-from config.Configuration import Configuration
+"""
+check for events and publish them to mqtt
+"""
+import logging
+import threading
+import time
+
+from config.configuration import Configuration
 from mqtt.publisher import Publisher
 from rf.client import RfClient
-
-import logging
-import time
-import threading
 
 has_signal = False
 
@@ -38,7 +41,7 @@ event_handler = Publisher(str(config.read_config("mqtt", "host")),
 while True:
     result = rf_client.read()
     if result is not None:
-        logging.info("Received event '%s'" % result)
+        logging.info("Received event %s", result)
         if config.read_config("rf", "filter") is None or result == int(config.read_config("rf", "filter")):
-           has_signal = True
+            has_signal = True
     time.sleep(1)  # wait one second until next check

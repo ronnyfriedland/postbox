@@ -1,7 +1,10 @@
+"""
+base mqtt handler
+"""
 import logging
-import paho.mqtt.client as mqtt
-
 from abc import ABC
+
+import paho.mqtt.client as mqtt
 
 
 class EventHandler(ABC):
@@ -10,6 +13,7 @@ class EventHandler(ABC):
 
     Provides methods to access the mqtt
     """
+
     def __init__(self, host, port, topic, user=None, password=None, ssl_ca=None):
         """
         Constructor to initialize der mqtt client
@@ -31,4 +35,4 @@ class EventHandler(ABC):
 
     @staticmethod
     def on_connect(client, userdata, flags, rc):
-        logging.debug("Connected with result code " + str(rc))
+        logging.debug("Connected with result code %s", str(rc))
