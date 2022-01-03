@@ -12,7 +12,7 @@
 ## Rf 433 MHz Receiver
 
 - Superheterodyne 433 Mhz Empfänger
-- Spannung: 5V DC
+- Spannung: 3V DC
 
 - Anschluss an RaspberryPi Pin 19
 - Rf Signal-Zeichenkette: 5592512 
