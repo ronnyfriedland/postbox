@@ -1,2 +1,11 @@
 [FORMAT]
 max-line-length=120
+
+[BASIC]
+max-args = 10
+
+[MESSAGES CONTROL]
+disable=
+ too-few-public-methods,
+ unused-argument,
+ fixme

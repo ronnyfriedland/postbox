@@ -1,8 +1,7 @@
 """
-mqtt subsriber to send mails
+mqtt subscriber to send mails
 """
 import smtplib
-import sys
 from email.message import EmailMessage
 
 from mail.mailconfiguration import MailConfiguration
@@ -10,6 +9,10 @@ from mqtt.subscriber import Subscriber
 
 
 class MailSubscriber(Subscriber):
+    """
+    mail subscriber class
+    """
+
     def __init__(self, mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca):
         """
         Initializes the mail subscriber instance
@@ -29,6 +32,7 @@ class MailSubscriber(Subscriber):
         """
 
         # Subscriber.on_message(client, userdata, msg)
+
         config = MailConfiguration(vault=True)
 
         mail = EmailMessage()
@@ -55,8 +59,6 @@ class MailSubscriber(Subscriber):
                 server.ehlo()
                 server.login(str(config.read_config("mail", "username")), str(config.read_config("mail", "password")))
                 server.send_message(mail)
-        except:
-            print("Error!", sys.exc_info()[0], "occurred.")
         finally:
             if server is not None:
                 server.quit()

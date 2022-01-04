@@ -7,14 +7,14 @@ from mqtt.handler import EventHandler
 
 
 class Publisher(EventHandler):
-    logging.basicConfig(filename='postbox_mqtt.log', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
-                        format='%(asctime)-15s - [%(levelname)s] %(module)s: %(message)s', )
-
     """
     Author: Ronny Friedland
 
     Publisher of events to mqtt topic
     """
+
+    logging.basicConfig(filename='postbox_mqtt.log', level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
+                        format='%(asctime)-15s - [%(levelname)s] %(module)s: %(message)s', )
 
     def __init__(self, mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca):
         """

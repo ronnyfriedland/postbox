@@ -1,10 +1,15 @@
-import logging
-
+"""
+mqtt subscriber to add entry to influxdb
+"""
+from config.configuration import Configuration
 from influx_db.client import InfluxDbClient
 from mqtt.subscriber import Subscriber
 
 
 class InfluxDBSubscriber(Subscriber):
+    """
+    influxdb subscriber class
+    """
 
     def __init__(self, mqtt_host, mqtt_port, mqtt_topic, mqtt_user, mqtt_password, mqtt_ssl_ca):
         """
@@ -24,11 +29,8 @@ class InfluxDBSubscriber(Subscriber):
         Defines action what to do if event receives
         """
 
-        #Subscriber.on_message(client, userdata, msg)
+        # Subscriber.on_message(client, userdata, msg)
 
-        logging.info((msg.topic + " " + str(msg.payload)))
-
-        from config.Configuration import Configuration
         config = Configuration()
 
         influxdb_client = InfluxDbClient(

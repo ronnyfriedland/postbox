@@ -35,4 +35,7 @@ class EventHandler(ABC):
 
     @staticmethod
     def on_connect(client, userdata, flags, rc):
+        """
+        method is triggered on mqtt connect
+        """
         logging.debug("Connected with result code %s", str(rc))

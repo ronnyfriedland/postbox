@@ -40,8 +40,8 @@ class RfClient:
         """
         if self.rfdevice.rx_code_timestamp != self.timestamp:
             self.timestamp = self.rfdevice.rx_code_timestamp
-            logging.info(str("%s [pulselength=%s, protocol=%s]", str(self.rfdevice.rx_code),
-                         str(self.rfdevice.rx_pulselength), str(self.rfdevice.rx_proto)))
+            logging.info("%s [pulselength=%s, protocol=%s]", str(self.rfdevice.rx_code),
+                         str(self.rfdevice.rx_pulselength), str(self.rfdevice.rx_proto))
             return self.rfdevice.rx_code
 
         return None

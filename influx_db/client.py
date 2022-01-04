@@ -1,3 +1,6 @@
+"""
+influx db client
+"""
 import datetime
 
 from influxdb import InfluxDBClient

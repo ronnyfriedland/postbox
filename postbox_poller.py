@@ -9,16 +9,16 @@ from config.configuration import Configuration
 from mqtt.publisher import Publisher
 from rf.client import RfClient
 
-has_signal = False
+HAS_SIGNAL = False
 
 
 def publish_signal():
-    global has_signal
+    global HAS_SIGNAL
 
     threading.Timer(60, publish_signal).start()
 
-    if has_signal:
-        has_signal = False
+    if HAS_SIGNAL:
+        HAS_SIGNAL = False
         event_handler.publish("postbox_open")
         logging.info("Published event to queue")
 
@@ -43,5 +43,5 @@ while True:
     if result is not None:
         logging.info("Received event %s", result)
         if config.read_config("rf", "filter") is None or result == int(config.read_config("rf", "filter")):
-            has_signal = True
+            HAS_SIGNAL = True
     time.sleep(1)  # wait one second until next check
